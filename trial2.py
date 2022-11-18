@@ -5,13 +5,23 @@ from threading import Thread
 from time import sleep
 import tkintermapview
 from math import sin, cos, sqrt, atan2
+import pandas as pd
+import numpy as np
+from queue import Queue
+import random
 
 class GUI_app():
     def __init__(self, window_title, width, height):
         self.win = Tk()
         self.win.title("कता खाने प्रकाश सर ?")
         x, y = self.center(width, height)
-        
+
+        self.storeeh = pd.read_csv("distance.txt")
+        #print(self.storeeh.to_string())\
+        #for index, row in self.storeeh.iterrows():
+        #    print(row['Latitude'], row['Longitude'],row['Name'])
+            
+            
         self.win.geometry(f"{width}x{height}+{x}+{y}")
         #self.win.overrideredirect(True)
         self.win.wm_attributes("-topmost", 1)
@@ -43,8 +53,13 @@ class GUI_app():
                 self.new_marker.delete()
             except:
                 pass
+            #store = open("distance.txt","a")
+            #store.write(str(coordinates_tuple)+"\n")
+            #store.close()
+
+            print(str(coordinates_tuple))
             self.new_marker = self.map_widget.set_marker(coordinates_tuple[0], coordinates_tuple[1], text="your position")
-            
+
 
         self.map_widget.add_left_click_map_command(left_click_event)
 
@@ -53,45 +68,44 @@ class GUI_app():
         
         self.exit_btn = Button(self.win, text="Exit", font=('Arial',14), bg=BG_button, fg=FG_button, command=self.win.destroy)
         self.exit_btn.place(x=70, y=700)
+        
+        class aarrey():
+            def __init__(self, size, name, distance):
+                self.size= 20
+                self.name = name
+                self.distance = distance
+                self.seat = Queue(maxsize=20)
+                
+                for i in range(random.randrange(5,20)):
+                    bad_num = random.randrange(1000,9999)
+                    self.seat.put(bad_num)
+                
+            def disp_queue(self):
+                print(self.seat.qsize())
+            
+
+        dummy = aarrey(15,"dummy",70)
+        objs = [dummy]
+        for index, row in self.storeeh.iterrows():
+            objs.append(aarrey(15,row['Name'],self.distance(float(row['Latitude']),float(row['Longitude']),0.5,0.5))) 
+
+        #this is the program part
+
             
     
-
-    def start_menu(self):
-        self.title_label = Label(self.win, text="CHOOSE YOUR POSITION", font=('Helvetica',18), bg=BG, fg=FG)
-        self.title_label.pack()
-
-        self.submit_btn = Button(self.win, text="Submit", font=('Arial',14), bg=BG_button, fg=FG_button,command= self.destroy())
-        self.submit_btn.place(x=850, y =700)
-
-        self.map_widget = tkintermapview.TkinterMapView(width = 800, height = 600, corner_radius=0 )
-        self.map_widget.set_position(27.618,85.538)
-
-        def left_click_event(coordinates_tuple):
-            print("Left click event with coordinates:", coordinates_tuple)
-            new_marker = self.self.map_widget.set_marker(coordinates_tuple[0], coordinates_tuple[1], text="your position")
-    
-        self.map_widget.add_left_click_map_command(left_click_event)
-        self.map_widget.pack()
-
-        self.exit_btn = Button(self.win, text="Exit", font=('Arial',14), bg=BG_button, fg=FG_button, command=self.win.destroy)
-        self.exit_btn.place(x=70, y=700)
-        
 
     def clear_screen(self):
         self.no = int(self.e1.get())
         for widget in self.win.winfo_children():
             widget.destroy()
-            print(948) 
+            
         
 
         
     def result2(self):
         self.clear_screen()
-        print("this was also run")
-
         self.title_label = Label(self.win, text="OUR SUGGESTIONS", font=('Helvetica',24), bg=BG, fg=FG)
         self.title_label.pack()
-
         self.title_label = Label(self.win, text="aru baki chha", font=('Helvetica',24), bg=BG, fg=FG)
         self.title_label.pack()
 
@@ -99,18 +113,11 @@ class GUI_app():
 
     def result(self):
         self.clear_screen()
-        print("this was also run")
-
-        
         self.title_label = Label(self.win, text="OUR SUGGESTIONS", font=('Helvetica',24), bg=BG, fg=FG)
         self.title_label.pack()
 
         self.title_label = Label(self.win, text="aru baki chha", font=('Helvetica',24), bg=BG, fg=FG)
         self.title_label.pack()
-
-        
-
-        
 
     def center(self, width, height):
         swidth = self.win.winfo_screenwidth()
@@ -132,6 +139,10 @@ class GUI_app():
         distance = R * c
 
         return distance
+
+    def write(self):
+        pass
+
 
     
 
