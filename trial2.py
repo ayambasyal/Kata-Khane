@@ -38,7 +38,7 @@ class GUI_app():
         self.title_label = Label(self.win, text="CHOOSE YOUR POSITION", font=('Helvetica',18), bg=BG, fg=FG_button)
         self.title_label.pack()
 
-        self.submit_btn = Button(self.win, text="Submit", font=('Arial',14), bg=BG_button, fg=FG_button,command=self.result)
+        self.submit_btn = Button(self.win, text="Submit", font=('Arial',14), bg=BG_button, fg=FG_button,command =lambda:[self.result(),bubbleSort(objs)])
         self.submit_btn.place(x=850, y =700)
 
         self.map_widget = tkintermapview.TkinterMapView(width = 800, height = 600, corner_radius=0 )
@@ -47,6 +47,8 @@ class GUI_app():
 
         self.new_marker = self.map_widget.set_marker(27.61845630485157, 85.53684128570558, text="your position") 
         
+        self.what_your_position_x = 27.62233076617784
+        self.what_your_position_y =85.53681951827144
         def left_click_event(coordinates_tuple):
             print("Left click event with coordinates:", coordinates_tuple)
             try:
@@ -58,6 +60,8 @@ class GUI_app():
             #store.close()
 
             print(str(coordinates_tuple))
+            self.what_your_position_x = coordinates_tuple[0]
+            self.what_your_position_y = coordinates_tuple[1]
             self.new_marker = self.map_widget.set_marker(coordinates_tuple[0], coordinates_tuple[1], text="your position")
 
 
@@ -82,17 +86,59 @@ class GUI_app():
                 
             def disp_queue(self):
                 print(self.seat.qsize())
-            
 
-        dummy = aarrey(15,"dummy",70)
-        objs = [dummy]
+        
+        def bubbleSort(objs):
+            objs = []
+
+            for index, row in self.storeeh.iterrows():
+                print(len(objs))
+                objs.append(aarrey(15,row['Name'],self.distance(float(row['Latitude']),float(row['Longitude']),self.what_your_position_x,self.what_your_position_y))) 
+
+            n = len(objs)
+            print(n)
+            print(n)
+            # optimize code, so if the array is already sorted, it doesn't need
+            # to go through the entire process
+            swapped = False
+            # Traverse through all array elements
+            for i in range(n):
+                # range(n) also work but outer loop will
+                # repeat one time more than needed.
+                # Last i elements are already in place
+                for j in range(0, n-i-1):
+
+                    # traverse the array from 0 to n-i-1
+                    # Swap if the element found is greater
+                    # than the next element
+                    if objs[j].distance > objs[j+1].distance:
+                        swapped = True
+                        objs[j], objs[j+1] = objs[j+1], objs[j]
+                
+                if not swapped:
+                    # if we haven't needed to make a single swap, we
+                    # can just exit the main loop.
+                    return
+                
+            for i in range(len(objs)):
+                print(objs[i].name,objs[i].distance)
+                pass
+        
+        #dummy = aarrey(15,"dummy",70)
+        objs = []
+        '''
         for index, row in self.storeeh.iterrows():
-            objs.append(aarrey(15,row['Name'],self.distance(float(row['Latitude']),float(row['Longitude']),0.5,0.5))) 
+            print(len(objs))
+            objs.append(aarrey(15,row['Name'],self.distance(float(row['Latitude']),float(row['Longitude']),self.what_your_position_x,self.what_your_position_y))) 
 
-        #this is the program part
+        '''
 
-            
-    
+        bubbleSort(objs)
+        '''
+        for i in range(len(objs)):
+            print(objs[i].name,objs[i].distance)
+            pass    
+        '''
 
     def clear_screen(self):
         self.no = int(self.e1.get())
