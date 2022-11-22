@@ -13,10 +13,11 @@ import random
 class GUI_app():
     def __init__(self, window_title, width, height):
         self.win = Tk()
-        self.win.title("कता खाने प्रकाश सर ?")
+        self.win.title("कता खाने?")
         x, y = self.center(width, height)
-
+        
         self.storeeh = pd.read_csv("distance.txt")
+      
         #print(self.storeeh.to_string())\
         #for index, row in self.storeeh.iterrows():
         #    print(row['Latitude'], row['Longitude'],row['Name'])
@@ -35,7 +36,7 @@ class GUI_app():
         self.number_label = Label(self.win, text="Enter no of people: ", font=('ubuntu',14), bg=BG, fg=FG)
         self.number_label.place(x=300, y =696)
 
-        self.e1 = Entry(self.win)
+        self.e1 = Entry(self.win, font=('ubuntu',14))
         self.e1.place(x=500, y =700)
 
         self.title_label = Label(self.win, text="CHOOSE YOUR POSITION", font=('ubuntu',18), bg=BG, fg=FG_button)
@@ -64,8 +65,7 @@ class GUI_app():
         self.b12 = Button
 
 
-        self.c1 = Label(self.win,text = "You have booked "+str(self.no_of_seats)+" seats at ", font=('ubuntu',18), bg=BG, fg=FG_button )
-
+        self.c1 = Label(self.win)
         self.what_your_position_x = 27.62233076617784
         self.what_your_position_y =85.53681951827144
         def left_click_event(coordinates_tuple):
@@ -155,9 +155,8 @@ class GUI_app():
 
     def book_func(self,name2):
         self.c1.destroy()
-        self.c1 = Label(self.win,text = "You have booked "+str(self.no_of_seats)+" seats hai @ "+name2, font=('Helvetica',18), bg=BG, fg=FG_button )
-        self.c1.place(x = 200,y = 600)
-
+        self.c1 = Label(self.win,text = "You have booked "+str(self.no_of_seats)+" seats at "+name2, font=('ubuntu',18), bg=highlight, fg=FG_button )
+        self.c1.place(x = 260,y = 600)
 
     def clear_screen(self):
         self.no = int(self.e1.get())
@@ -168,12 +167,8 @@ class GUI_app():
     def result(self):
         self.no_of_seats = self.e1.get()
         self.clear_screen()
-        self.title_label = Label(self.win, text="OUR SUGGESTIONS", font=('Helvetica',24), bg=BG, fg=FG)
+        self.title_label = Label(self.win, text="OUR SUGGESTIONS", font=('ubuntu',24), bg=BG, fg=FG)
         self.title_label.grid(columnspan=5)
-
-        self.title_label = Label(self.win, text="aru baki chaina , hehe", font=('Helvetica',12), bg=BG, fg=FG)
-        self.title_label.grid(columnspan=5)
-        #self.title_label.pack()
 
       
 
@@ -193,51 +188,51 @@ class GUI_app():
                 if (j==4) and (i!=0):
                     print(i)
                     '''
-                    l2 = Button(self.win,text =lst[i][j] , width=18, fg='blue',font=('Arial',11,'bold'),command=lambda:[self.book_func(self.objs[i-6].name)])
+                    l2 = Button(self.win,text =lst[i][j] , width=18, fg='blue',font=('Arial',13,'bold'),command=lambda:[self.book_func(self.objs[i-6].name)])
                     self.b1.grid(row=i+3, column=j,sticky= S)
                     button_list.append(l2)
                     '''
                     if (i == 1):
-                        self.b1 = Button(self.win,text =lst[i][j] , width=18, fg='blue',font=('Arial',11,'bold'),command=lambda:[self.book_func(self.objs[0].name)])
+                        self.b1 = Button(self.win,text =lst[i][j] , width=18, font=('ubuntu',11,'bold'),command=lambda:[self.book_func(self.objs[0].name)])
                         self.b1.grid(row=i+3, column=j,sticky= S)
                     if (i == 2):
-                        self.b2 = Button(self.win,text =lst[i][j] , width=18, fg='blue',font=('Arial',11,'bold'),command=lambda:[self.book_func(self.objs[1].name)])
+                        self.b2 = Button(self.win,text =lst[i][j] , width=18,font=('ubuntu',11,'bold'),command=lambda:[self.book_func(self.objs[1].name)])
                         self.b2.grid(row=i+3, column=j,sticky= S)
                     if (i == 3):
-                        self.b3 = Button(self.win,text =lst[i][j] , width=18, fg='blue',font=('Arial',11,'bold'),command=lambda:[self.book_func(self.objs[2].name)])
+                        self.b3 = Button(self.win,text =lst[i][j] , width=18, font=('ubuntu',11,'bold'),command=lambda:[self.book_func(self.objs[2].name)])
                         self.b3.grid(row=i+3, column=j,sticky= S)
                     if (i == 4):
-                        self.b4 = Button(self.win,text =lst[i][j] , width=18, fg='blue',font=('Arial',11,'bold'),command=lambda:[self.book_func(self.objs[3].name)])
+                        self.b4 = Button(self.win,text =lst[i][j] , width=18, font=('ubuntu',11,'bold'),command=lambda:[self.book_func(self.objs[3].name)])
                         self.b4.grid(row=i+3, column=j,sticky= S)
                     if (i == 5):
-                        self.b5 = Button(self.win,text =lst[i][j] , width=18, fg='blue',font=('Arial',11,'bold'),command=lambda:[self.book_func(self.objs[4].name)])
+                        self.b5 = Button(self.win,text =lst[i][j] , width=18, font=('ubuntu',11,'bold'),command=lambda:[self.book_func(self.objs[4].name)])
                         self.b5.grid(row=i+3, column=j,sticky= S)
                     if (i == 6):
-                        self.b6 = Button(self.win,text =lst[i][j] , width=18, fg='blue',font=('Arial',11,'bold'),command=lambda:[self.book_func(self.objs[5].name)])
+                        self.b6 = Button(self.win,text =lst[i][j] , width=18, font=('ubuntu',11,'bold'),command=lambda:[self.book_func(self.objs[5].name)])
                         self.b6.grid(row=i+3, column=j,sticky= S)
                     if (i == 7):
-                        self.b7 = Button(self.win,text =lst[i][j] , width=18, fg='blue',font=('Arial',11,'bold'),command=lambda:[self.book_func(self.objs[6].name)])
+                        self.b7 = Button(self.win,text =lst[i][j] , width=18, font=('ubuntu',11,'bold'),command=lambda:[self.book_func(self.objs[6].name)])
                         self.b7.grid(row=i+3, column=j,sticky= S)
                     if (i == 8):
-                        self.b8 = Button(self.win,text =lst[i][j] , width=18, fg='blue',font=('Arial',11,'bold'),command=lambda:[self.book_func(self.objs[7].name)])
+                        self.b8 = Button(self.win,text =lst[i][j] , width=18, font=('ubuntu',11,'bold'),command=lambda:[self.book_func(self.objs[7].name)])
                         self.b8.grid(row=i+3, column=j,sticky= S)
                     if (i == 9):
-                        self.b9 = Button(self.win,text =lst[i][j] , width=18, fg='blue',font=('Arial',11,'bold'),command=lambda:[self.book_func(self.objs[8].name)])
+                        self.b9 = Button(self.win,text =lst[i][j] , width=18, font=('ubuntu',11,'bold'),command=lambda:[self.book_func(self.objs[8].name)])
                         self.b9.grid(row=i+3, column=j,sticky= S)
                     if (i == 10):
-                        self.b10 = Button(self.win,text =lst[i][j] , width=18, fg='blue',font=('Arial',11,'bold'),command=lambda:[self.book_func(self.objs[9].name)])
+                        self.b10 = Button(self.win,text =lst[i][j] , width=18, font=('ubuntu',11,'bold'),command=lambda:[self.book_func(self.objs[9].name)])
                         self.b10.grid(row=i+3, column=j,sticky= S)
                     if (i == 11):
-                        self.b11 = Button(self.win,text =lst[i][j] , width=18, fg='blue',font=('Arial',11,'bold'),command=lambda:[self.book_func(self.objs[10].name)])
+                        self.b11 = Button(self.win,text =lst[i][j] , width=18, font=('ubuntu',11,'bold'),command=lambda:[self.book_func(self.objs[10].name)])
                         self.b11.grid(row=i+3, column=j,sticky= S)
                     if (i == 12):
-                        self.b12 = Button(self.win,text =lst[i][j] , width=18, fg='blue',font=('Arial',11,'bold'),command=lambda:[self.book_func(self.objs[11].name)])
+                        self.b12 = Button(self.win,text =lst[i][j] , width=18, font=('ubuntu',11,'bold'),command=lambda:[self.book_func(self.objs[11].name)])
                         self.b12.grid(row=i+3, column=j,sticky= S)
                   
 
 
                 else:
-                    l1 = Label(self.win,text =lst[i][j] , width=18, fg='blue',font=('Arial',11,'bold'))
+                    l1 = Label(self.win,text =lst[i][j] , width=18 ,font=('ubuntu',11,'bold'))
                     l1.grid(row=i+3, column=j,sticky= S)
                 
                 
