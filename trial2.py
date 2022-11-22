@@ -28,17 +28,20 @@ class GUI_app():
         #self.win.wm_attributes("-alpha", 0.99)
         self.win.configure(background=BG)
         self.no = 2
+        self.objs=[]
 
-        self.number_label = Label(self.win, text="enter no of people", font=('Helvetica',14), bg=BG, fg=FG)
-        self.number_label.place(x=300, y =700)
+        self.no_of_seats = int
+
+        self.number_label = Label(self.win, text="Enter no of people: ", font=('ubuntu',14), bg=BG, fg=FG)
+        self.number_label.place(x=300, y =696)
 
         self.e1 = Entry(self.win)
         self.e1.place(x=500, y =700)
 
-        self.title_label = Label(self.win, text="CHOOSE YOUR POSITION", font=('Helvetica',18), bg=BG, fg=FG_button)
+        self.title_label = Label(self.win, text="CHOOSE YOUR POSITION", font=('ubuntu',18), bg=BG, fg=FG_button)
         self.title_label.pack()
 
-        self.submit_btn = Button(self.win, text="Submit", font=('Arial',14), bg=BG_button, fg=FG_button,command =lambda:[self.result(),bubbleSort(objs)])
+        self.submit_btn = Button(self.win, text="Submit", font=('Arial',14), bg=BG_button, fg=FG_button,command =lambda:[bubbleSort(objs),self.result()])
         self.submit_btn.place(x=850, y =700)
 
         self.map_widget = tkintermapview.TkinterMapView(width = 800, height = 600, corner_radius=0 )
@@ -47,6 +50,22 @@ class GUI_app():
 
         self.new_marker = self.map_widget.set_marker(27.61845630485157, 85.53684128570558, text="your position") 
         
+        self.b1 = Button
+        self.b2 = Button
+        self.b3 = Button
+        self.b4 = Button
+        self.b5 = Button
+        self.b6 = Button
+        self.b7 = Button
+        self.b8 = Button
+        self.b9 = Button
+        self.b10 = Button
+        self.b11 = Button
+        self.b12 = Button
+
+
+        self.c1 = Label(self.win,text = "You have booked "+str(self.no_of_seats)+" seats at ", font=('ubuntu',18), bg=BG, fg=FG_button )
+
         self.what_your_position_x = 27.62233076617784
         self.what_your_position_y =85.53681951827144
         def left_click_event(coordinates_tuple):
@@ -74,18 +93,22 @@ class GUI_app():
         self.exit_btn.place(x=70, y=700)
         
         class aarrey():
-            def __init__(self, size, name, distance):
+            def __init__(self, name, distance):
                 self.size= 20
                 self.name = name
                 self.distance = distance
                 self.seat = Queue(maxsize=20)
-                
-                for i in range(random.randrange(5,20)):
+            
+                for i in range(random.randrange(5,17)):
                     bad_num = random.randrange(1000,9999)
+                    print(bad_num)
                     self.seat.put(bad_num)
+                
+                self.disp_queue()
                 
             def disp_queue(self):
                 print(self.seat.qsize())
+                return self.seat.qsize()
 
         
         def bubbleSort(objs):
@@ -93,8 +116,7 @@ class GUI_app():
 
             for index, row in self.storeeh.iterrows():
                 print(len(objs))
-                objs.append(aarrey(15,row['Name'],self.distance(float(row['Latitude']),float(row['Longitude']),self.what_your_position_x,self.what_your_position_y))) 
-
+                objs.append(aarrey(row['Name'],self.distance(float(row['Latitude']),float(row['Longitude']),self.what_your_position_x,self.what_your_position_y))) 
             n = len(objs)
             print(n)
             print(n)
@@ -119,51 +141,123 @@ class GUI_app():
                     # if we haven't needed to make a single swap, we
                     # can just exit the main loop.
                     return
-                
+            self.objs= []
+            self.objs.extend(objs)
             for i in range(len(objs)):
                 print(objs[i].name,objs[i].distance)
                 pass
         
         #dummy = aarrey(15,"dummy",70)
         objs = []
-        '''
-        for index, row in self.storeeh.iterrows():
-            print(len(objs))
-            objs.append(aarrey(15,row['Name'],self.distance(float(row['Latitude']),float(row['Longitude']),self.what_your_position_x,self.what_your_position_y))) 
-
-        '''
+       
 
         bubbleSort(objs)
-        '''
-        for i in range(len(objs)):
-            print(objs[i].name,objs[i].distance)
-            pass    
-        '''
+
+    def book_func(self,name2):
+        self.c1.destroy()
+        self.c1 = Label(self.win,text = "You have booked "+str(self.no_of_seats)+" seats hai @ "+name2, font=('Helvetica',18), bg=BG, fg=FG_button )
+        self.c1.place(x = 200,y = 600)
+
 
     def clear_screen(self):
         self.no = int(self.e1.get())
         for widget in self.win.winfo_children():
             widget.destroy()
             
-        
-
-        
-    def result2(self):
-        self.clear_screen()
-        self.title_label = Label(self.win, text="OUR SUGGESTIONS", font=('Helvetica',24), bg=BG, fg=FG)
-        self.title_label.pack()
-        self.title_label = Label(self.win, text="aru baki chha", font=('Helvetica',24), bg=BG, fg=FG)
-        self.title_label.pack()
-
-
 
     def result(self):
+        self.no_of_seats = self.e1.get()
         self.clear_screen()
         self.title_label = Label(self.win, text="OUR SUGGESTIONS", font=('Helvetica',24), bg=BG, fg=FG)
-        self.title_label.pack()
+        self.title_label.grid(columnspan=5)
 
-        self.title_label = Label(self.win, text="aru baki chha", font=('Helvetica',24), bg=BG, fg=FG)
-        self.title_label.pack()
+        self.title_label = Label(self.win, text="aru baki chaina , hehe", font=('Helvetica',12), bg=BG, fg=FG)
+        self.title_label.grid(columnspan=5)
+        #self.title_label.pack()
+
+      
+
+
+        lst = [("Serial number","Place to eat","Occupied seats","Vacant seats","BOOK?")]
+        
+        for i in range(0,12):
+            lst.append((i+1,self.objs[i].name,self.objs[i].disp_queue(),20-int(self.objs[i].disp_queue()),"book"))
+
+        total_rows = len(lst)
+        total_columns = len(lst[0])
+        button_list = []
+
+        # code for creating table
+        for i in range(total_rows):
+            for j in range(total_columns):
+                if (j==4) and (i!=0):
+                    print(i)
+                    '''
+                    l2 = Button(self.win,text =lst[i][j] , width=18, fg='blue',font=('Arial',11,'bold'),command=lambda:[self.book_func(self.objs[i-6].name)])
+                    self.b1.grid(row=i+3, column=j,sticky= S)
+                    button_list.append(l2)
+                    '''
+                    if (i == 1):
+                        self.b1 = Button(self.win,text =lst[i][j] , width=18, fg='blue',font=('Arial',11,'bold'),command=lambda:[self.book_func(self.objs[0].name)])
+                        self.b1.grid(row=i+3, column=j,sticky= S)
+                    if (i == 2):
+                        self.b2 = Button(self.win,text =lst[i][j] , width=18, fg='blue',font=('Arial',11,'bold'),command=lambda:[self.book_func(self.objs[1].name)])
+                        self.b2.grid(row=i+3, column=j,sticky= S)
+                    if (i == 3):
+                        self.b3 = Button(self.win,text =lst[i][j] , width=18, fg='blue',font=('Arial',11,'bold'),command=lambda:[self.book_func(self.objs[2].name)])
+                        self.b3.grid(row=i+3, column=j,sticky= S)
+                    if (i == 4):
+                        self.b4 = Button(self.win,text =lst[i][j] , width=18, fg='blue',font=('Arial',11,'bold'),command=lambda:[self.book_func(self.objs[3].name)])
+                        self.b4.grid(row=i+3, column=j,sticky= S)
+                    if (i == 5):
+                        self.b5 = Button(self.win,text =lst[i][j] , width=18, fg='blue',font=('Arial',11,'bold'),command=lambda:[self.book_func(self.objs[4].name)])
+                        self.b5.grid(row=i+3, column=j,sticky= S)
+                    if (i == 6):
+                        self.b6 = Button(self.win,text =lst[i][j] , width=18, fg='blue',font=('Arial',11,'bold'),command=lambda:[self.book_func(self.objs[5].name)])
+                        self.b6.grid(row=i+3, column=j,sticky= S)
+                    if (i == 7):
+                        self.b7 = Button(self.win,text =lst[i][j] , width=18, fg='blue',font=('Arial',11,'bold'),command=lambda:[self.book_func(self.objs[6].name)])
+                        self.b7.grid(row=i+3, column=j,sticky= S)
+                    if (i == 8):
+                        self.b8 = Button(self.win,text =lst[i][j] , width=18, fg='blue',font=('Arial',11,'bold'),command=lambda:[self.book_func(self.objs[7].name)])
+                        self.b8.grid(row=i+3, column=j,sticky= S)
+                    if (i == 9):
+                        self.b9 = Button(self.win,text =lst[i][j] , width=18, fg='blue',font=('Arial',11,'bold'),command=lambda:[self.book_func(self.objs[8].name)])
+                        self.b9.grid(row=i+3, column=j,sticky= S)
+                    if (i == 10):
+                        self.b10 = Button(self.win,text =lst[i][j] , width=18, fg='blue',font=('Arial',11,'bold'),command=lambda:[self.book_func(self.objs[9].name)])
+                        self.b10.grid(row=i+3, column=j,sticky= S)
+                    if (i == 11):
+                        self.b11 = Button(self.win,text =lst[i][j] , width=18, fg='blue',font=('Arial',11,'bold'),command=lambda:[self.book_func(self.objs[10].name)])
+                        self.b11.grid(row=i+3, column=j,sticky= S)
+                    if (i == 12):
+                        self.b12 = Button(self.win,text =lst[i][j] , width=18, fg='blue',font=('Arial',11,'bold'),command=lambda:[self.book_func(self.objs[11].name)])
+                        self.b12.grid(row=i+3, column=j,sticky= S)
+                  
+
+
+                else:
+                    l1 = Label(self.win,text =lst[i][j] , width=18, fg='blue',font=('Arial',11,'bold'))
+                    l1.grid(row=i+3, column=j,sticky= S)
+                
+                
+        '''
+        # code for creating table
+        for i in range(total_rows):
+            for j in range(total_columns):
+                
+                l1 = Label(self.win,text =lst[i][j] , width=18, fg='blue',font=('Arial',11,'bold'))
+                l1.grid(row=i+3, column=j,sticky= S)
+        
+        '''
+        def refresh():
+
+                
+            
+            print("*********************************************")
+            print(self.objs)
+            
+
 
     def center(self, width, height):
         swidth = self.win.winfo_screenwidth()
@@ -172,8 +266,7 @@ class GUI_app():
         y = (sheight/2) - (height/2)
         return int(x), int(y)
 
-    def submit(self):
-        pass
+
 
     def distance(self,lat1,lon1,lat2,lon2):
                 
