@@ -47,7 +47,7 @@ class GUI_app():
 
         self.map_widget = tkintermapview.TkinterMapView(width = 800, height = 600, corner_radius=0 )
         self.map_widget.set_position(27.618,85.538)
-        self.map_widget.set_tile_server("https://mt0.google.com/vt/lyrs=m&hl=en&x={x}&y={y}&z={z}&s=Ga", max_zoom=22)
+        #self.map_widget.set_tile_server("https://mt0.google.com/vt/lyrs=m&hl=en&x={x}&y={y}&z={z}&s=Ga", max_zoom=22)
 
         self.new_marker = self.map_widget.set_marker(27.61845630485157, 85.53684128570558, text="your position") 
         
