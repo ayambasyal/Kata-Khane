@@ -1,5 +1,5 @@
 # Kata Khane
-> you are as strong as your weakest link
+This is a simple application made using tkinter, ideas regarding ui, concept and overall design are not mine and are by ...
 
 ## what is it?
 A program that shows the closest restaurant. And helps us to book the place
