@@ -1,5 +1,6 @@
 # Kata Khane
-This is an application made using tkinter, ideas regarding ui, concept and overall design are not mine are by 
+Kata Khane is an application made using Tkinter and Python for choosing the best food destination near dhulikhel. It uses a map implementation from OSM
+The concept is by 
 Ruby Shrestha
 Shambhav Rayamajhi
 Yogesh Sapkota
